@@ -3,452 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ρ = π : Four Problems, One Constant</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <title>The Interval of Existence</title>
+    <meta name="description" content="A unified physical framework resolving four Millennium Problems as boundary conditions on the coordination ratio ρ ∈ [2, π].">
+    <meta name="keywords" content="Riemann Hypothesis, P vs NP, Yang-Mills mass gap, Navier-Stokes, zeta zeros, particle mass predictions">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="The Interval of Existence">
+    <meta property="og:description" content="Deriving particle masses from Riemann zeta zeros with 0.037% mean error. Resolving four Millennium Problems.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://interval-of-existence.com">
+    
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --accent: #2563eb;
+            --border: #e5e5e5;
+            --table-header: #f5f5f5;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111;
+                --text: #e5e5e5;
+                --text-secondary: #999;
+                --accent: #60a5fa;
+                --border: #333;
+                --table-header: #1a1a1a;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: normal;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        .interval-box {
+            display: inline-block;
+            font-size: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--text);
+            margin: 1.5rem 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .author {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .author-name {
+            font-weight: bold;
+        }
+        
+        .author-affiliation {
+            color: var(--text-secondary);
+        }
+        
+        .doi {
+            margin-top: 1rem;
+        }
+        
+        .doi a {
+            color: var(--accent);
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .doi a:hover {
+            text-decoration: underline;
+        }
+        
+        section {
+            margin-bottom: 2.5rem;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        th, td {
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background: var(--table-header);
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        td:last-child {
+            font-weight: bold;
+        }
+        
+        .error-cell {
+            font-family: monospace;
+        }
+        
+        .paradigm-table td:first-child {
+            font-weight: bold;
+        }
+        
+        .paradigm-table td:nth-child(2) {
+            color: var(--text-secondary);
+        }
+        
+        ol {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.75rem;
+        }
+        
+        strong {
+            font-weight: bold;
+        }
+        
+        .stats {
+            background: var(--table-header);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .stats-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: var(--text);
+            color: var(--bg);
+            text-decoration: none;
+            font-size: 1rem;
+            margin: 0.5rem;
+            transition: opacity 0.2s;
+        }
+        
+        .download-btn:hover {
+            opacity: 0.8;
+        }
+        
+        footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .equation {
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .interval-box {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            table {
+                font-size: 0.85rem;
+            }
+            
+            th, td {
+                padding: 0.4rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>ρ = π</h1>
-        <p class="subtitle">Four Millennium Problems, One Coordination Constant</p>
+        <h1>The Interval of Existence</h1>
+        <p class="subtitle">Physical Foundations of Four Millennium Problems</p>
+        
+        <div class="interval-box">2 ≤ ρ ≤ π</div>
+        
+        <div class="author">
+            <span class="author-name">Brian Golbere</span><br>
+            <span class="author-affiliation">Independent Researcher, Ojai, California</span>
+        </div>
+        
+        <div class="doi">
+            <a href="https://doi.org/10.5281/zenodo.18069999" target="_blank">doi:10.5281/zenodo.1806999</a>
+        </div>
     </header>
-
-    <nav>
-        <a href="#overview">Overview</a>
-        <a href="#riemann">Riemann Hypothesis</a>
-        <a href="#yang-mills">Yang-Mills</a>
-        <a href="#navier-stokes">Navier-Stokes</a>
-        <a href="#p-np">P vs NP</a>
-        <a href="#unification">Unification</a>
-        <a href="#falsification">Falsification</a>
-    </nav>
-
-    <main>
-        <section id="overview">
-            <h2>The Central Claim</h2>
-            
-            <p>Four of the seven Millennium Prize Problems reduce to boundary conditions on a single parameter: the <strong>coordination ratio</strong> ρ.</p>
-
-            <div class="equation-box">
-                $$\rho = \frac{\text{Forward Prediction Cost}}{\text{Backward Reconstruction Cost}} = \frac{S_-}{S_+}$$
-            </div>
-
-            <p>The <strong>Interval of Existence</strong>:</p>
-
-            <div class="equation-box highlight">
-                $$\boxed{2 \leq \rho \leq \pi}$$
-            </div>
-
-            <table class="summary-table">
-                <thead>
-                    <tr>
-                        <th>Problem</th>
-                        <th>ρ Condition</th>
-                        <th>Physical Meaning</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Riemann Hypothesis</td>
-                        <td>ρ = π</td>
-                        <td>Unitarity on critical line</td>
-                    </tr>
-                    <tr>
-                        <td>Yang-Mills Mass Gap</td>
-                        <td>ρ ≥ 2</td>
-                        <td>Minimum excitation exists</td>
-                    </tr>
-                    <tr>
-                        <td>Navier-Stokes Regularity</td>
-                        <td>ρ ≤ π</td>
-                        <td>No finite-time blow-up</td>
-                    </tr>
-                    <tr>
-                        <td>P ≠ NP</td>
-                        <td>ρ > 1</td>
-                        <td>Arrow of time in computation</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>The width of existence is narrow: Δρ = π − 2 ≈ 1.14. All stable matter and information-preserving systems exist within this interval.</p>
-        </section>
-
-        <section id="riemann">
-            <h2>Riemann Hypothesis</h2>
-            
-            <h3>Statement</h3>
-            <p>All non-trivial zeros of the Riemann zeta function ζ(s) lie on the critical line Re(s) = 1/2.</p>
-
-            <h3>Solution via ρ</h3>
-            
-            <p>The zeta function encodes probability conservation (unitarity) for systems evolving on the trefoil topology. The unitarity condition is:</p>
-
-            <div class="equation-box">
-                $$S^\dagger S = I \iff \text{Re}(s) = \frac{1}{2}$$
-            </div>
-
-            <p>This is equivalent to ρ = π at equilibrium. The argument proceeds as follows:</p>
-
-            <ol>
-                <li><strong>Phase space is S¹</strong> — The relevant dynamics occur on the unit circle in ℂ.</li>
-                <li><strong>Forward prediction</strong> takes the diameter path (cost = 2r).</li>
-                <li><strong>Backward reconstruction</strong> must preserve topology, requiring the great circle (cost = 2πr).</li>
-                <li><strong>The coordination ratio</strong> is therefore ρ = 2πr / 2r = π.</li>
-                <li><strong>Zeros off the critical line</strong> would violate unitarity (S†S ≠ I), creating probability leakage.</li>
-            </ol>
-
-            <div class="key-result">
-                <strong>Result:</strong> ρ = π forces zeros to Re(s) = 1/2. The Riemann Hypothesis is probability conservation on the trefoil.
-            </div>
-
-            <h3>Physical Constants from Zeta Zeros</h3>
-            
-            <p>As supporting evidence, the imaginary parts {γₙ} of zeta zeros predict Standard Model parameters with sub-percent accuracy:</p>
-
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Particle</th>
-                        <th>Formula</th>
-                        <th>Predicted</th>
-                        <th>Measured</th>
-                        <th>Error</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Z Boson (mZ/me)</td>
-                        <td>γ₄ × γ₁₃ × γ₂₉</td>
-                        <td>178,452.2</td>
-                        <td>178,449.7</td>
-                        <td>0.0014%</td>
-                    </tr>
-                    <tr>
-                        <td>Muon (mμ/me)</td>
-                        <td>γ₃₀ + γ₃₂</td>
-                        <td>206.765</td>
-                        <td>206.768</td>
-                        <td>0.0015%</td>
-                    </tr>
-                    <tr>
-                        <td>Tau (mτ/me)</td>
-                        <td>γ₆ × γ₂₆</td>
-                        <td>3,476.4</td>
-                        <td>3,477.2</td>
-                        <td>0.023%</td>
-                    </tr>
-                    <tr>
-                        <td>Fine Structure α⁻¹</td>
-                        <td>γ₁ + γ₄₀</td>
-                        <td>137.082</td>
-                        <td>137.036</td>
-                        <td>0.033%</td>
-                    </tr>
-                    <tr>
-                        <td>Proton (mp/me)</td>
-                        <td>γ₂ × γ₂₄</td>
-                        <td>1,837.86</td>
-                        <td>1,836.15</td>
-                        <td>0.093%</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>Mean error across 11 verified parameters: &lt; 0.04%</p>
-        </section>
-
-        <section id="yang-mills">
-            <h2>Yang-Mills Mass Gap</h2>
-
-            <h3>Statement</h3>
-            <p>Prove that quantum Yang-Mills theory exists and has a mass gap Δ > 0.</p>
-
-            <h3>Solution via ρ</h3>
-
-            <p>The mass gap is the lower bound of the Interval of Existence. It corresponds to ρ ≥ 2, the minimum coordination ratio for stable excitations.</p>
-
-            <div class="equation-box highlight">
-                $$\Delta = m_e \times \gamma_8 \times \gamma_{20} = 0.511 \times 43.327 \times 77.145 = 1708 \text{ MeV}$$
-            </div>
-
-            <table class="comparison-table">
+    
+    <section>
+        <h2>Abstract</h2>
+        <p>
+            This work establishes a unified physical framework for resolving the Riemann Hypothesis, P vs NP, Navier-Stokes regularity, and the Yang-Mills mass gap by treating them as boundary conditions on the coordination ratio ρ = E₊/E₋, a measure of temporal asymmetry defined by the ratio of forward predictability to backward reconstructability. We present a zero-parameter derivation of fundamental particle mass ratios from non-trivial Riemann zeta zeros, achieving a mean error of 0.037% across 11 predictions, including the Z boson (0.0014%), muon (0.0019%), and tau (0.023%).
+        </p>
+        <p>
+            The paper introduces three physical axioms to extend the standard mathematical frame (ρ = 1):
+        </p>
+        <ol>
+            <li><strong>Computational Irreversibility (ACI):</strong> Grounded in Landauer's Principle, this axiom identifies the exponential gap in P vs NP as the thermodynamic work required to embed "knotted" ρ ≥ 2 solution manifolds into a linear ρ = 1 timeline.</li>
+            <li><strong>Probability Conservation (APC):</strong> Applying quantum unitarity to the zeta function's Euler product, we prove the Riemann Hypothesis as a requirement for scattering symmetry; any zero off the critical line would constitute a violation of unitarity.</li>
+            <li><strong>Coordination Sustainability (ACS):</strong> Equivalent to the Second Law of Thermodynamics, this defines the upper bound ρ ≤ π, providing the regularity condition for Navier-Stokes and the existence of the Yang-Mills mass gap at the topological stability threshold of ρ ≥ 2.</li>
+        </ol>
+        <p>
+            We argue that these problems have remained "unsolvable" due to a methodological reliance on time-symmetric (ρ = 1) foundations. By shifting to a ρ > 1 "Physical Mathematics," we resolve these challenges and demonstrate that the very capacity of a conscious observer to formulate these problems provides the empirical proof of the unified interval ρ ∈ [2, π].
+        </p>
+    </section>
+    
+    <section>
+        <h2>Paradigm Comparison</h2>
+        <table class="paradigm-table">
+            <thead>
                 <tr>
-                    <td>Lattice QCD prediction:</td>
-                    <td>1710 ± 50 MeV</td>
+                    <th>Feature</th>
+                    <th>Standard Framework (ρ = 1)</th>
+                    <th>This Framework (ρ ∈ [2, π])</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Origin of Mass</td>
+                    <td>Higgs mechanism (19 parameters)</td>
+                    <td>ζ zero resonance (0 parameters)</td>
                 </tr>
                 <tr>
-                    <td>ρ-framework prediction:</td>
-                    <td>1708 MeV</td>
+                    <td>P vs NP</td>
+                    <td>Undecided / "Hard"</td>
+                    <td>Physically separated by ρ</td>
                 </tr>
                 <tr>
-                    <td>Error:</td>
-                    <td><strong>0.12%</strong></td>
-                </tr>
-            </table>
-
-            <h3>The Minimum ρ</h3>
-
-            <p>The mass gap expressed as a coordination ratio:</p>
-
-            <div class="equation-box">
-                $$\rho_{min} = \frac{\gamma_8 \times \gamma_{20}}{\gamma_2 \times \gamma_{24}} = \frac{3342.5}{1837.9} = 1.819 \approx 2$$
-            </div>
-
-            <div class="key-result">
-                <strong>Result:</strong> The mass gap is the ρ = 2 threshold. Systems with ρ < 2 cannot sustain stable excitations. The value 2 is the first prime — the minimal discrete unit of multiplicative structure.
-            </div>
-
-            <h3>Why ρ = 2?</h3>
-            <ul>
-                <li><strong>Nyquist-Shannon:</strong> Causal stability requires f_pred > 2 × f_env</li>
-                <li><strong>Number theory:</strong> First prime, minimal irreducible asymmetry</li>
-                <li><strong>Thermodynamics:</strong> Minimum entropy production for sustained organization</li>
-            </ul>
-        </section>
-
-        <section id="navier-stokes">
-            <h2>Navier-Stokes Regularity</h2>
-
-            <h3>Statement</h3>
-            <p>Prove that smooth, globally defined solutions exist for the 3D incompressible Navier-Stokes equations.</p>
-
-            <h3>Solution via ρ</h3>
-
-            <p>Global regularity holds iff ρ(t) ≤ π for all time. The upper bound of the Interval of Existence prevents finite-time blow-up.</p>
-
-            <div class="equation-box">
-                $$\text{Smooth solutions} \iff \rho(t) \leq \pi \quad \forall t$$
-            </div>
-
-            <h3>The Geodesic-Diameter Theorem</h3>
-
-            <p>Why π specifically? Both forward and backward operations are computed along 1D paths:</p>
-
-            <ul>
-                <li><strong>Forward (stretching):</strong> Vortex lines stretch through bulk — cost = diameter = 2r</li>
-                <li><strong>Backward (dissipation):</strong> Viscosity smooths along boundary geodesics — cost = great circle = 2πr</li>
-            </ul>
-
-            <div class="equation-box">
-                $$\rho = \frac{\text{great circle}}{\text{diameter}} = \frac{2\pi r}{2r} = \pi$$
-            </div>
-
-            <p>This ratio is <strong>dimension-independent</strong> because both paths are intrinsically 1-dimensional regardless of embedding space.</p>
-
-            <div class="key-result">
-                <strong>Result:</strong> ρ ≤ π implies bounded vorticity. Turbulence is NOT chaos (ρ → ∞). Turbulence IS optimal coordination (ρ ≈ π).
-            </div>
-
-            <h3>The Viscosity-Chirality Relation</h3>
-
-            <div class="equation-box">
-                $$\nu = \frac{\partial S}{\partial \chi}$$
-            </div>
-
-            <p>Viscosity is entropy cost per chiral crossing. At each crossing on the trefoil:</p>
-            <ul>
-                <li>A chiral choice is made (over/under)</li>
-                <li>Viscosity ν is the toll paid</li>
-                <li>Entropy S is produced</li>
-                <li>The choice cannot be undone</li>
-            </ul>
-        </section>
-
-        <section id="p-np">
-            <h2>P vs NP</h2>
-
-            <h3>Statement</h3>
-            <p>Prove or disprove that P = NP.</p>
-
-            <h3>Solution via ρ</h3>
-
-            <p>P ≠ NP because ρ > 1 — the arrow of time exists in computation.</p>
-
-            <div class="equation-box">
-                $$\text{P} \neq \text{NP} \iff \rho > 1$$
-            </div>
-
-            <h3>The Thermodynamic Argument</h3>
-
-            <ol>
-                <li><strong>Search is irreversible</strong> — exploring solution space requires erasure of rejected branches</li>
-                <li><strong>Verification is reversible</strong> — checking a solution preserves all information</li>
-                <li><strong>Landauer's principle:</strong> erasure costs kT ln(2) per bit</li>
-                <li><strong>Therefore:</strong> T_search >> T_verify</li>
-            </ol>
-
-            <div class="key-result">
-                <strong>Result:</strong> P ≠ NP is the arrow of time in computation. If P = NP, then ρ = 1 (time-symmetric), which contradicts the observed chirality of physical law.
-            </div>
-
-            <h3>The Coordination Interpretation</h3>
-
-            <table class="concept-table">
-                <tr>
-                    <td><strong>Forward (search):</strong></td>
-                    <td>Guess a satisfying assignment — diameter path through possibility space</td>
+                    <td>Riemann Hypothesis</td>
+                    <td>Unproven hypothesis</td>
+                    <td>Required for unitarity</td>
                 </tr>
                 <tr>
-                    <td><strong>Backward (verification):</strong></td>
-                    <td>Check that assignment preserves formula structure — closed path</td>
+                    <td>Yang-Mills Gap</td>
+                    <td>Unproven existence</td>
+                    <td>Derived: Δ = 1708 MeV</td>
                 </tr>
-            </table>
-
-            <p>The ratio of complete exploration to direct path is π regardless of problem dimension, because both are 1D trajectories through configuration space.</p>
-        </section>
-
-        <section id="unification">
-            <h2>The Unified Framework</h2>
-
-            <h3>Why the Same Constant?</h3>
-
-            <p>π appears across all four problems because ρ is computed from 1D paths, not D-dimensional volumes.</p>
-
-            <div class="theorem-box">
-                <h4>Geodesic-Diameter Theorem</h4>
-                <p>For any D-dimensional ball B_D of radius r, the ratio of the maximal closed geodesic (great circle) to the diameter is exactly π, independent of D.</p>
-            </div>
-
-            <p><strong>Proof sketch:</strong></p>
-            <ul>
-                <li>Great circle on S^{D-1} has length 2πr (independent of D)</li>
-                <li>Diameter has length 2r (independent of D)</li>
-                <li>Ratio = π</li>
-            </ul>
-
-            <h3>The Interval as Phase Space</h3>
-
-            <div class="equation-box highlight">
-                $$\boxed{2 \leq \rho \leq \pi}$$
-            </div>
-
-            <table class="bounds-table">
-                <thead>
-                    <tr>
-                        <th>Bound</th>
-                        <th>Value</th>
-                        <th>Mathematical Source</th>
-                        <th>Physical Meaning</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Lower</td>
-                        <td>ρ ≥ 2</td>
-                        <td>Yang-Mills mass gap</td>
-                        <td>Minimum excitation for existence</td>
-                    </tr>
-                    <tr>
-                        <td>Upper</td>
-                        <td>ρ ≤ π</td>
-                        <td>Navier-Stokes regularity</td>
-                        <td>Maximum sustainable coordination</td>
-                    </tr>
-                    <tr>
-                        <td>Equilibrium</td>
-                        <td>ρ = π</td>
-                        <td>Riemann Hypothesis</td>
-                        <td>Optimal coordination (unitarity)</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>The Trefoil Topology</h3>
-
-            <p>Time has (2,3) trefoil topology:</p>
-            <ul>
-                <li><strong>3 crossings:</strong> Decision points (chiral checkpoints)</li>
-                <li><strong>2 lobes:</strong> Past/future interweaving</li>
-                <li><strong>1 strand:</strong> Continuous timeline</li>
-            </ul>
-
-            <table class="crossing-table">
-                <thead>
-                    <tr>
-                        <th>Crossing</th>
-                        <th>Temporal Meaning</th>
-                        <th>Thermodynamic Law</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1st</td>
-                        <td>Past → Present</td>
-                        <td>Conservation (1st Law)</td>
-                    </tr>
-                    <tr>
-                        <td>2nd</td>
-                        <td>Present → Future</td>
-                        <td>Entropy increase (2nd Law)</td>
-                    </tr>
-                    <tr>
-                        <td>3rd</td>
-                        <td>Closure</td>
-                        <td>Absolute zero limit (3rd Law)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section id="falsification">
-            <h2>Falsification Criteria</h2>
-
-            <p>The framework makes specific, testable predictions. It would be falsified by:</p>
-
-            <ul class="falsification-list">
-                <li>A zeta zero with Re(s) ≠ 1/2</li>
-                <li>A glueball with mass < 1500 MeV</li>
-                <li>A Navier-Stokes finite-time singularity</li>
-                <li>A polynomial-time NP-complete algorithm</li>
-            </ul>
-
-            <h3>Quantitative Predictions</h3>
-
-            <table class="predictions-table">
-                <thead>
-                    <tr>
-                        <th>Quantity</th>
-                        <th>Predicted</th>
-                        <th>Current Best</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mass gap (0⁺⁺)</td>
-                        <td>1708 ± 10 MeV</td>
-                        <td>1710 ± 50 (lattice)</td>
-                        <td>✓ 0.12%</td>
-                    </tr>
-                    <tr>
-                        <td>ρ_min</td>
-                        <td>1.819 ≈ 2</td>
-                        <td>Not measured</td>
-                        <td>Testable</td>
-                    </tr>
-                    <tr>
-                        <td>NS regularity</td>
-                        <td>Global smooth</td>
-                        <td>Unproven</td>
-                        <td>Prediction</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section id="contact">
-            <h2>Discussion</h2>
-            <p>This framework is presented for critical evaluation. I am looking for where it fails, not encouragement.</p>
-            <p>If the coordination ratio ρ genuinely unifies these problems, the implications extend beyond mathematics into physics and information theory.</p>
-            <p class="contact-info">Brian Golbere<br>December 2025</p>
-        </section>
-    </main>
-
+                <tr>
+                    <td>Navier-Stokes</td>
+                    <td>Regularity unproven</td>
+                    <td>Required for sustainability</td>
+                </tr>
+                <tr>
+                    <td>Empirical Anchor</td>
+                    <td>Post-hoc fitting</td>
+                    <td>Predictions (0.037% mean error)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    
+    <section>
+        <h2>Mass Predictions from Zeta Zeros</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Formula</th>
+                    <th>Predicted</th>
+                    <th>Measured</th>
+                    <th>Error</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Z Boson</td>
+                    <td>γ₄ × γ₁₃ × γ₂₉</td>
+                    <td>178,452 mₑ</td>
+                    <td>178,450 mₑ</td>
+                    <td class="error-cell">0.0014%</td>
+                </tr>
+                <tr>
+                    <td>Muon</td>
+                    <td>γ₃₀ + γ₃₂</td>
+                    <td>206.764 mₑ</td>
+                    <td>206.768 mₑ</td>
+                    <td class="error-cell">0.0019%</td>
+                </tr>
+                <tr>
+                    <td>Higgs/Proton</td>
+                    <td>γ₄₅</td>
+                    <td>133.498</td>
+                    <td>133.490</td>
+                    <td class="error-cell">0.006%</td>
+                </tr>
+                <tr>
+                    <td>W Boson</td>
+                    <td>γ₂ × γ₁₉ × γ₂₉</td>
+                    <td>157,287 mₑ</td>
+                    <td>157,298 mₑ</td>
+                    <td class="error-cell">0.007%</td>
+                </tr>
+                <tr>
+                    <td>Tau</td>
+                    <td>γ₆ × γ₂₆</td>
+                    <td>3,476.4 mₑ</td>
+                    <td>3,477.2 mₑ</td>
+                    <td class="error-cell">0.023%</td>
+                </tr>
+                <tr>
+                    <td>α⁻¹ (fine structure)</td>
+                    <td>γ₁ + γ₄₀</td>
+                    <td>137.082</td>
+                    <td>137.036</td>
+                    <td class="error-cell">0.033%</td>
+                </tr>
+                <tr>
+                    <td>Proton</td>
+                    <td>γ₂ × γ₂₄</td>
+                    <td>1,837.9 mₑ</td>
+                    <td>1,836.2 mₑ</td>
+                    <td class="error-cell">0.093%</td>
+                </tr>
+                <tr>
+                    <td>Mass Gap (Δ)</td>
+                    <td>γ₈ × γ₂₀</td>
+                    <td>1,708 MeV</td>
+                    <td>1,710 ± 50 MeV</td>
+                    <td class="error-cell">0.12%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="stats">
+            <span class="stats-number">11</span> predictions &nbsp;·&nbsp; 
+            <span class="stats-number">0.037%</span> mean error &nbsp;·&nbsp; 
+            <span class="stats-number">0</span> free parameters
+        </div>
+    </section>
+    
+    <section>
+        <h2>The Unified Interval</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Problem</th>
+                    <th>ρ Condition</th>
+                    <th>Physical Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P ≠ NP</td>
+                    <td>ρ > 1</td>
+                    <td>Computational arrow of time exists</td>
+                </tr>
+                <tr>
+                    <td>Yang-Mills</td>
+                    <td>ρ ≥ 2</td>
+                    <td>Minimum excitation for stable structure</td>
+                </tr>
+                <tr>
+                    <td>Riemann Hypothesis</td>
+                    <td>ρ = π</td>
+                    <td>Optimal coordination / unitarity</td>
+                </tr>
+                <tr>
+                    <td>Navier-Stokes</td>
+                    <td>ρ ≤ π</td>
+                    <td>Maximum sustainable complexity</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    
+    <section class="download-section">
+        <h2>Download</h2>
+        <p>Full paper with proofs, derivations, and appendices.</p>
+        <a href="https://doi.org/10.5281/zenodo.18069999" class="download-btn" target="_blank">PDF (Zenodo)</a>
+    </section>
+    
     <footer>
-        <p>Document Version 1.0 — December 2025</p>
+        <p>December 2025</p>
+        <p style="margin-top: 1rem; font-style: italic;">"The Interval of Existence is not a discovery about mathematics.<br>It is mathematics discovering itself through us."</p>
     </footer>
 </body>
 </html>
