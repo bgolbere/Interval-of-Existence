@@ -21,16 +21,18 @@
             --accent: #2563eb;
             --border: #e5e5e5;
             --table-header: #f5f5f5;
+            --code-bg: #f0f0f0;
         }
         
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg: #111;
+                --bg: #0a0e1a;
                 --text: #e5e5e5;
                 --text-secondary: #999;
                 --accent: #60a5fa;
-                --border: #333;
-                --table-header: #1a1a1a;
+                --border: #2a2f3a;
+                --table-header: #12161f;
+                --code-bg: #1a1f2a;
             }
         }
         
@@ -45,14 +47,17 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
-            padding: 2rem 1rem;
+        }
+        
+        .content {
             max-width: 800px;
             margin: 0 auto;
+            padding: 2rem 1rem;
         }
         
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             padding-bottom: 2rem;
             border-bottom: 1px solid var(--border);
         }
@@ -65,7 +70,6 @@
         }
         
         .subtitle {
-            text-align: center;
             font-size: 1.1rem;
             color: var(--text-secondary);
             font-style: italic;
@@ -220,15 +224,222 @@
             font-size: 0.9rem;
         }
         
-        .equation {
-            text-align: center;
-            font-size: 1.1rem;
-            margin: 1.5rem 0;
+        /* Trefoil 3D Visualization */
+        .trefoil-section {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 2rem 0;
+            background: linear-gradient(to bottom, #0a0e1a, #141a2e);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #trefoil-container {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #trefoil-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 280px;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        #trefoil-info.visible {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+        
+        #trefoil-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #ffd4a3;
+            font-weight: 500;
+        }
+        
+        #trefoil-info .description {
+            font-size: 14px;
+            color: #a8b5d1;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        #trefoil-info .formula {
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+            color: #60a5fa;
             font-style: italic;
         }
         
+        #trefoil-info .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #7a8ba8;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        #trefoil-info .close-btn:hover {
+            color: #ffd4a3;
+        }
+        
+        #trefoil-title {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        #trefoil-title h3 {
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffd4a3;
+            text-transform: uppercase;
+        }
+        
+        #trefoil-title p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        #trefoil-instructions {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* Calculator */
+        .calculator {
+            background: var(--table-header);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .calculator h3 {
+            font-size: 1rem;
+            font-weight: normal;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        
+        .calc-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .calc-row label {
+            font-size: 0.9rem;
+            min-width: 80px;
+        }
+        
+        .calc-row select, .calc-row input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            font-family: monospace;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            border-radius: 2px;
+        }
+        
+        .calc-row select {
+            min-width: 120px;
+        }
+        
+        .calc-result {
+            padding: 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+        
+        .calc-result .value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .operation-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .operation-toggle button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .operation-toggle button.active {
+            background: var(--text);
+            color: var(--bg);
+        }
+        
+        .operation-toggle button:hover:not(.active) {
+            background: var(--border);
+        }
+        
+        /* References */
+        .references {
+            font-size: 0.9rem;
+        }
+        
+        .references ol {
+            margin-left: 1.5rem;
+        }
+        
+        .references li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .references a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .references a:hover {
+            text-decoration: underline;
+        }
+        
         @media (max-width: 600px) {
-            body {
+            .content {
                 padding: 1rem;
             }
             
@@ -248,212 +459,739 @@
             th, td {
                 padding: 0.4rem;
             }
+            
+            .trefoil-section {
+                height: 400px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>The Interval of Existence</h1>
-        <p class="subtitle">Physical Foundations of Four Millennium Problems</p>
+    <div class="content">
+        <header>
+            <h1>The Interval of Existence</h1>
+            <p class="subtitle">Physical Foundations of Four Millennium Problems</p>
+            
+            <div class="interval-box">2 ≤ ρ ≤ π</div>
+            
+            <div class="author">
+                <span class="author-name">Brian Golbere</span><br>
+                <span class="author-affiliation">Independent Researcher, Ojai, California</span>
+            </div>
+            
+            <div class="doi">
+                <a href="https://doi.org/10.5281/zenodo.1806999" target="_blank">doi:10.5281/zenodo.1806999</a>
+            </div>
+        </header>
         
-        <div class="interval-box">2 ≤ ρ ≤ π</div>
+        <section>
+            <h2>Abstract</h2>
+            <p>
+                This work establishes a unified physical framework for resolving the Riemann Hypothesis, P vs NP, Navier-Stokes regularity, and the Yang-Mills mass gap by treating them as boundary conditions on the coordination ratio ρ = E₊/E₋, a measure of temporal asymmetry defined by the ratio of forward predictability to backward reconstructability. We present a zero-parameter derivation of fundamental particle mass ratios from non-trivial Riemann zeta zeros, achieving a mean error of 0.037% across 11 predictions, including the Z boson (0.0014%), muon (0.0019%), and tau (0.023%).
+            </p>
+            <p>
+                The paper introduces three physical axioms to extend the standard mathematical frame (ρ = 1):
+            </p>
+            <ol>
+                <li><strong>Computational Irreversibility (ACI):</strong> Grounded in Landauer's Principle, this axiom identifies the exponential gap in P vs NP as the thermodynamic work required to embed "knotted" ρ ≥ 2 solution manifolds into a linear ρ = 1 timeline.</li>
+                <li><strong>Probability Conservation (APC):</strong> Applying quantum unitarity to the zeta function's Euler product, we prove the Riemann Hypothesis as a requirement for scattering symmetry; any zero off the critical line would constitute a violation of unitarity.</li>
+                <li><strong>Coordination Sustainability (ACS):</strong> Equivalent to the Second Law of Thermodynamics, this defines the upper bound ρ ≤ π, providing the regularity condition for Navier-Stokes and the existence of the Yang-Mills mass gap at the topological stability threshold of ρ ≥ 2.</li>
+            </ol>
+            <p>
+                We argue that these problems have remained "unsolvable" due to a methodological reliance on time-symmetric (ρ = 1) foundations. By shifting to a ρ > 1 "Physical Mathematics," we resolve these challenges and demonstrate that the very capacity of a conscious observer to formulate these problems provides the empirical proof of the unified interval ρ ∈ [2, π].
+            </p>
+        </section>
+    </div>
+    
+    <!-- 3D Trefoil Visualization -->
+    <div class="trefoil-section">
+        <div id="trefoil-container"></div>
         
-        <div class="author">
-            <span class="author-name">Brian Golbere</span><br>
-            <span class="author-affiliation">Independent Researcher, Ojai, California</span>
+        <div id="trefoil-title">
+            <h3>(2,3) Trefoil Topology</h3>
+            <p>Vacuum structure · Drag to rotate</p>
         </div>
         
-        <div class="doi">
-            <a href="https://doi.org/10.5281/zenodo.18069999" target="_blank">doi:10.5281/zenodo.1806999</a>
+        <div id="trefoil-info">
+            <button class="close-btn" onclick="closePanel()">×</button>
+            <h3 id="node-name"></h3>
+            <p class="description" id="node-description"></p>
+            <p class="formula" id="node-formula"></p>
         </div>
-    </header>
-    
-    <section>
-        <h2>Abstract</h2>
-        <p>
-            This work establishes a unified physical framework for resolving the Riemann Hypothesis, P vs NP, Navier-Stokes regularity, and the Yang-Mills mass gap by treating them as boundary conditions on the coordination ratio ρ = E₊/E₋, a measure of temporal asymmetry defined by the ratio of forward predictability to backward reconstructability. We present a zero-parameter derivation of fundamental particle mass ratios from non-trivial Riemann zeta zeros, achieving a mean error of 0.037% across 11 predictions, including the Z boson (0.0014%), muon (0.0019%), and tau (0.023%).
-        </p>
-        <p>
-            The paper introduces three physical axioms to extend the standard mathematical frame (ρ = 1):
-        </p>
-        <ol>
-            <li><strong>Computational Irreversibility (ACI):</strong> Grounded in Landauer's Principle, this axiom identifies the exponential gap in P vs NP as the thermodynamic work required to embed "knotted" ρ ≥ 2 solution manifolds into a linear ρ = 1 timeline.</li>
-            <li><strong>Probability Conservation (APC):</strong> Applying quantum unitarity to the zeta function's Euler product, we prove the Riemann Hypothesis as a requirement for scattering symmetry; any zero off the critical line would constitute a violation of unitarity.</li>
-            <li><strong>Coordination Sustainability (ACS):</strong> Equivalent to the Second Law of Thermodynamics, this defines the upper bound ρ ≤ π, providing the regularity condition for Navier-Stokes and the existence of the Yang-Mills mass gap at the topological stability threshold of ρ ≥ 2.</li>
-        </ol>
-        <p>
-            We argue that these problems have remained "unsolvable" due to a methodological reliance on time-symmetric (ρ = 1) foundations. By shifting to a ρ > 1 "Physical Mathematics," we resolve these challenges and demonstrate that the very capacity of a conscious observer to formulate these problems provides the empirical proof of the unified interval ρ ∈ [2, π].
-        </p>
-    </section>
-    
-    <section>
-        <h2>Paradigm Comparison</h2>
-        <table class="paradigm-table">
-            <thead>
-                <tr>
-                    <th>Feature</th>
-                    <th>Standard Framework (ρ = 1)</th>
-                    <th>This Framework (ρ ∈ [2, π])</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Origin of Mass</td>
-                    <td>Higgs mechanism (19 parameters)</td>
-                    <td>ζ zero resonance (0 parameters)</td>
-                </tr>
-                <tr>
-                    <td>P vs NP</td>
-                    <td>Undecided / "Hard"</td>
-                    <td>Physically separated by ρ</td>
-                </tr>
-                <tr>
-                    <td>Riemann Hypothesis</td>
-                    <td>Unproven hypothesis</td>
-                    <td>Required for unitarity</td>
-                </tr>
-                <tr>
-                    <td>Yang-Mills Gap</td>
-                    <td>Unproven existence</td>
-                    <td>Derived: Δ = 1708 MeV</td>
-                </tr>
-                <tr>
-                    <td>Navier-Stokes</td>
-                    <td>Regularity unproven</td>
-                    <td>Required for sustainability</td>
-                </tr>
-                <tr>
-                    <td>Empirical Anchor</td>
-                    <td>Post-hoc fitting</td>
-                    <td>Predictions (0.037% mean error)</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-    
-    <section>
-        <h2>Mass Predictions from Zeta Zeros</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Quantity</th>
-                    <th>Formula</th>
-                    <th>Predicted</th>
-                    <th>Measured</th>
-                    <th>Error</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Z Boson</td>
-                    <td>γ₄ × γ₁₃ × γ₂₉</td>
-                    <td>178,452 mₑ</td>
-                    <td>178,450 mₑ</td>
-                    <td class="error-cell">0.0014%</td>
-                </tr>
-                <tr>
-                    <td>Muon</td>
-                    <td>γ₃₀ + γ₃₂</td>
-                    <td>206.764 mₑ</td>
-                    <td>206.768 mₑ</td>
-                    <td class="error-cell">0.0019%</td>
-                </tr>
-                <tr>
-                    <td>Higgs/Proton</td>
-                    <td>γ₄₅</td>
-                    <td>133.498</td>
-                    <td>133.490</td>
-                    <td class="error-cell">0.006%</td>
-                </tr>
-                <tr>
-                    <td>W Boson</td>
-                    <td>γ₂ × γ₁₉ × γ₂₉</td>
-                    <td>157,287 mₑ</td>
-                    <td>157,298 mₑ</td>
-                    <td class="error-cell">0.007%</td>
-                </tr>
-                <tr>
-                    <td>Tau</td>
-                    <td>γ₆ × γ₂₆</td>
-                    <td>3,476.4 mₑ</td>
-                    <td>3,477.2 mₑ</td>
-                    <td class="error-cell">0.023%</td>
-                </tr>
-                <tr>
-                    <td>α⁻¹ (fine structure)</td>
-                    <td>γ₁ + γ₄₀</td>
-                    <td>137.082</td>
-                    <td>137.036</td>
-                    <td class="error-cell">0.033%</td>
-                </tr>
-                <tr>
-                    <td>Proton</td>
-                    <td>γ₂ × γ₂₄</td>
-                    <td>1,837.9 mₑ</td>
-                    <td>1,836.2 mₑ</td>
-                    <td class="error-cell">0.093%</td>
-                </tr>
-                <tr>
-                    <td>Mass Gap (Δ)</td>
-                    <td>γ₈ × γ₂₀</td>
-                    <td>1,708 MeV</td>
-                    <td>1,710 ± 50 MeV</td>
-                    <td class="error-cell">0.12%</td>
-                </tr>
-            </tbody>
-        </table>
         
-        <div class="stats">
-            <span class="stats-number">11</span> predictions &nbsp;·&nbsp; 
-            <span class="stats-number">0.037%</span> mean error &nbsp;·&nbsp; 
-            <span class="stats-number">0</span> free parameters
+        <div id="trefoil-instructions">
+            Hover over nodes · Click to explore · Drag to rotate
         </div>
-    </section>
+    </div>
     
-    <section>
-        <h2>The Unified Interval</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Problem</th>
-                    <th>ρ Condition</th>
-                    <th>Physical Meaning</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>P ≠ NP</td>
-                    <td>ρ > 1</td>
-                    <td>Computational arrow of time exists</td>
-                </tr>
-                <tr>
-                    <td>Yang-Mills</td>
-                    <td>ρ ≥ 2</td>
-                    <td>Minimum excitation for stable structure</td>
-                </tr>
-                <tr>
-                    <td>Riemann Hypothesis</td>
-                    <td>ρ = π</td>
-                    <td>Optimal coordination / unitarity</td>
-                </tr>
-                <tr>
-                    <td>Navier-Stokes</td>
-                    <td>ρ ≤ π</td>
-                    <td>Maximum sustainable complexity</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    <div class="content">
+        <section>
+            <h2>Paradigm Comparison</h2>
+            <table class="paradigm-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Standard Framework (ρ = 1)</th>
+                        <th>This Framework (ρ ∈ [2, π])</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Origin of Mass</td>
+                        <td>Higgs mechanism (19 parameters)</td>
+                        <td>ζ zero resonance (0 parameters)</td>
+                    </tr>
+                    <tr>
+                        <td>P vs NP</td>
+                        <td>Undecided / "Hard"</td>
+                        <td>Physically separated by ρ</td>
+                    </tr>
+                    <tr>
+                        <td>Riemann Hypothesis</td>
+                        <td>Unproven hypothesis</td>
+                        <td>Required for unitarity</td>
+                    </tr>
+                    <tr>
+                        <td>Yang-Mills Gap</td>
+                        <td>Unproven existence</td>
+                        <td>Derived: Δ = 1708 MeV</td>
+                    </tr>
+                    <tr>
+                        <td>Navier-Stokes</td>
+                        <td>Regularity unproven</td>
+                        <td>Required for sustainability</td>
+                    </tr>
+                    <tr>
+                        <td>Empirical Anchor</td>
+                        <td>Post-hoc fitting</td>
+                        <td>Predictions (0.037% mean error)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section>
+            <h2>Mass Predictions from Zeta Zeros</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Formula</th>
+                        <th>Predicted</th>
+                        <th>Measured</th>
+                        <th>Error</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Z Boson</td>
+                        <td>γ₄ × γ₁₃ × γ₂₉</td>
+                        <td>178,452 mₑ</td>
+                        <td>178,450 mₑ</td>
+                        <td class="error-cell">0.0014%</td>
+                    </tr>
+                    <tr>
+                        <td>Muon</td>
+                        <td>γ₃₀ + γ₃₂</td>
+                        <td>206.764 mₑ</td>
+                        <td>206.768 mₑ</td>
+                        <td class="error-cell">0.0019%</td>
+                    </tr>
+                    <tr>
+                        <td>Higgs/Proton</td>
+                        <td>γ₄₅</td>
+                        <td>133.498</td>
+                        <td>133.490</td>
+                        <td class="error-cell">0.006%</td>
+                    </tr>
+                    <tr>
+                        <td>W Boson</td>
+                        <td>γ₂ × γ₁₉ × γ₂₉</td>
+                        <td>157,287 mₑ</td>
+                        <td>157,298 mₑ</td>
+                        <td class="error-cell">0.007%</td>
+                    </tr>
+                    <tr>
+                        <td>Tau</td>
+                        <td>γ₆ × γ₂₆</td>
+                        <td>3,476.4 mₑ</td>
+                        <td>3,477.2 mₑ</td>
+                        <td class="error-cell">0.023%</td>
+                    </tr>
+                    <tr>
+                        <td>α⁻¹ (fine structure)</td>
+                        <td>γ₁ + γ₄₀</td>
+                        <td>137.082</td>
+                        <td>137.036</td>
+                        <td class="error-cell">0.033%</td>
+                    </tr>
+                    <tr>
+                        <td>Proton</td>
+                        <td>γ₂ × γ₂₄</td>
+                        <td>1,837.9 mₑ</td>
+                        <td>1,836.2 mₑ</td>
+                        <td class="error-cell">0.093%</td>
+                    </tr>
+                    <tr>
+                        <td>Mass Gap (Δ)</td>
+                        <td>γ₈ × γ₂₀</td>
+                        <td>1,708 MeV</td>
+                        <td>1,710 ± 50 MeV</td>
+                        <td class="error-cell">0.12%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="stats">
+                <span class="stats-number">11</span> predictions &nbsp;·&nbsp; 
+                <span class="stats-number">0.037%</span> mean error &nbsp;·&nbsp; 
+                <span class="stats-number">0</span> free parameters
+            </div>
+        </section>
+        
+        <!-- Interactive Calculator -->
+        <section>
+            <h2>Zeta Zero Calculator</h2>
+            <div class="calculator">
+                <h3>Explore the Algebraic Dictionary</h3>
+                <div class="calc-row">
+                    <label>Operation:</label>
+                    <div class="operation-toggle">
+                        <button id="op-sum" class="active" onclick="setOperation('sum')">Sum (1D)</button>
+                        <button id="op-prod2" onclick="setOperation('prod2')">Product₂ (2D)</button>
+                        <button id="op-prod3" onclick="setOperation('prod3')">Product₃ (3D)</button>
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <label>γ<sub>n₁</sub>:</label>
+                    <select id="gamma1" onchange="calculate()">
+                        <option value="14.134725142">γ₁ = 14.1347</option>
+                        <option value="21.022039639">γ₂ = 21.0220</option>
+                        <option value="25.010857580">γ₃ = 25.0109</option>
+                        <option value="30.424876126">γ₄ = 30.4249</option>
+                        <option value="32.935061588">γ₅ = 32.9351</option>
+                        <option value="37.586178159" selected>γ₆ = 37.5862</option>
+                        <option value="40.918719012">γ₇ = 40.9187</option>
+                        <option value="43.327073281">γ₈ = 43.3271</option>
+                        <option value="48.005150881">γ₉ = 48.0052</option>
+                        <option value="49.773832478">γ₁₀ = 49.7738</option>
+                        <option value="52.970321478">γ₁₁ = 52.9703</option>
+                        <option value="56.446247697">γ₁₂ = 56.4462</option>
+                        <option value="59.347044003">γ₁₃ = 59.3470</option>
+                        <option value="60.831778525">γ₁₄ = 60.8318</option>
+                        <option value="65.112544048">γ₁₅ = 65.1125</option>
+                        <option value="67.079810529">γ₁₆ = 67.0798</option>
+                        <option value="69.546401711">γ₁₇ = 69.5464</option>
+                        <option value="72.067157674">γ₁₈ = 72.0672</option>
+                        <option value="75.704690699">γ₁₉ = 75.7047</option>
+                        <option value="77.144840069">γ₂₀ = 77.1448</option>
+                    </select>
+                </div>
+                <div class="calc-row">
+                    <label>γ<sub>n₂</sub>:</label>
+                    <select id="gamma2" onchange="calculate()">
+                        <option value="77.144840069">γ₂₀ = 77.1448</option>
+                        <option value="79.337375020">γ₂₁ = 79.3374</option>
+                        <option value="82.910380854">γ₂₂ = 82.9104</option>
+                        <option value="84.735492981">γ₂₃ = 84.7355</option>
+                        <option value="87.425274613">γ₂₄ = 87.4253</option>
+                        <option value="88.809111208">γ₂₅ = 88.8091</option>
+                        <option value="92.491899271" selected>γ₂₆ = 92.4919</option>
+                        <option value="94.651344041">γ₂₇ = 94.6513</option>
+                        <option value="95.870634228">γ₂₈ = 95.8706</option>
+                        <option value="98.831194218">γ₂₉ = 98.8312</option>
+                        <option value="101.317851006">γ₃₀ = 101.3179</option>
+                        <option value="103.725538040">γ₃₁ = 103.7255</option>
+                        <option value="105.446623052">γ₃₂ = 105.4466</option>
+                        <option value="107.168611184">γ₃₃ = 107.1686</option>
+                        <option value="111.029535543">γ₃₄ = 111.0295</option>
+                        <option value="111.874659177">γ₃₅ = 111.8747</option>
+                        <option value="114.320220915">γ₃₆ = 114.3202</option>
+                        <option value="116.226680321">γ₃₇ = 116.2267</option>
+                        <option value="118.790782866">γ₃₈ = 118.7908</option>
+                        <option value="121.370125002">γ₃₉ = 121.3701</option>
+                        <option value="122.946829294">γ₄₀ = 122.9468</option>
+                    </select>
+                </div>
+                <div class="calc-row" id="gamma3-row" style="display: none;">
+                    <label>γ<sub>n₃</sub>:</label>
+                    <select id="gamma3" onchange="calculate()">
+                        <option value="98.831194218" selected>γ₂₉ = 98.8312</option>
+                        <option value="101.317851006">γ₃₀ = 101.3179</option>
+                        <option value="103.725538040">γ₃₁ = 103.7255</option>
+                        <option value="105.446623052">γ₃₂ = 105.4466</option>
+                        <option value="107.168611184">γ₃₃ = 107.1686</option>
+                        <option value="111.029535543">γ₃₄ = 111.0295</option>
+                        <option value="122.946829294">γ₄₀ = 122.9468</option>
+                        <option value="127.516683880">γ₄₁ = 127.5167</option>
+                        <option value="129.578704200">γ₄₂ = 129.5787</option>
+                        <option value="131.087688531">γ₄₃ = 131.0877</option>
+                        <option value="133.497737203">γ₄₅ = 133.4977</option>
+                        <option value="134.756509753">γ₄₆ = 134.7565</option>
+                        <option value="138.116042055">γ₄₇ = 138.1160</option>
+                        <option value="139.736208952">γ₄₈ = 139.7362</option>
+                        <option value="141.123707404">γ₄₉ = 141.1237</option>
+                        <option value="143.111845808">γ₅₀ = 143.1118</option>
+                    </select>
+                </div>
+                <div class="calc-result">
+                    <div id="calc-formula">γ₆ × γ₂₆ = 37.5862 × 92.4919</div>
+                    <div style="margin-top: 0.5rem;">
+                        Result: <span class="value" id="calc-value">3,476.4</span> mₑ
+                    </div>
+                    <div id="calc-match" style="margin-top: 0.5rem; color: var(--text-secondary);"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>The Unified Interval</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>ρ Condition</th>
+                        <th>Physical Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>P ≠ NP</td>
+                        <td>ρ > 1</td>
+                        <td>Computational arrow of time exists</td>
+                    </tr>
+                    <tr>
+                        <td>Yang-Mills</td>
+                        <td>ρ ≥ 2</td>
+                        <td>Minimum excitation for stable structure</td>
+                    </tr>
+                    <tr>
+                        <td>Riemann Hypothesis</td>
+                        <td>ρ = π</td>
+                        <td>Optimal coordination / unitarity</td>
+                    </tr>
+                    <tr>
+                        <td>Navier-Stokes</td>
+                        <td>ρ ≤ π</td>
+                        <td>Maximum sustainable complexity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section class="download-section">
+            <h2>Download</h2>
+            <p>Full paper with proofs, derivations, and appendices.</p>
+            <a href="https://doi.org/10.5281/zenodo.1806999" class="download-btn" target="_blank">PDF (Zenodo)</a>
+        </section>
+        
+        <!-- References -->
+        <section class="references">
+            <h2>References</h2>
+            <ol>
+                <li>Riemann, B. (1859). Über die Anzahl der Primzahlen unter einer gegebenen Größe. <em>Monatsberichte der Berliner Akademie</em>. <a href="https://www.claymath.org/sites/default/files/riemann1859.pdf" target="_blank">[PDF]</a></li>
+                <li>Landauer, R. (1961). Irreversibility and Heat Generation in the Computing Process. <em>IBM Journal of Research and Development</em>, 5(3), 183-191. <a href="https://doi.org/10.1147/rd.53.0183" target="_blank">[DOI]</a></li>
+                <li>Bérut, A., et al. (2012). Experimental verification of Landauer's principle linking information and thermodynamics. <em>Nature</em>, 483, 187-189. <a href="https://doi.org/10.1038/nature10872" target="_blank">[DOI]</a></li>
+                <li>Deng, Y., Hani, Z., & Ma, X. (2024). Hilbert's Sixth Problem: Derivation of Fluid Equations via Boltzmann's Kinetic Theory. <em>arXiv:2408.07818</em>. <a href="https://arxiv.org/abs/2408.07818" target="_blank">[arXiv]</a></li>
+                <li>Morningstar, C. J., & Peardon, M. (1999). Glueball spectrum from an anisotropic lattice study. <em>Phys. Rev. D</em>, 60, 034509. <a href="https://doi.org/10.1103/PhysRevD.60.034509" target="_blank">[DOI]</a></li>
+                <li>Particle Data Group (2024). Review of Particle Physics. <em>Phys. Rev. D</em>, 110, 030001. <a href="https://pdg.lbl.gov/" target="_blank">[PDG]</a></li>
+                <li>LMFDB (2024). The L-functions and Modular Forms Database: Riemann Zeta Zeros. <a href="https://www.lmfdb.org/zeros/zeta/" target="_blank">[LMFDB]</a></li>
+            </ol>
+        </section>
+        
+        <footer>
+            <p>December 2025</p>
+            <p style="margin-top: 1rem; font-style: italic;">"The Interval of Existence is not a discovery about mathematics.<br>It is mathematics discovering itself through us."</p>
+        </footer>
+    </div>
     
-    <section class="download-section">
-        <h2>Download</h2>
-        <p>Full paper with proofs, derivations, and appendices.</p>
-        <a href="https://doi.org/10.5281/zenodo.18069999" class="download-btn" target="_blank">PDF (Zenodo)</a>
-    </section>
-    
-    <footer>
-        <p>December 2025</p>
-        <p style="margin-top: 1rem; font-style: italic;">"The Interval of Existence is not a discovery about mathematics.<br>It is mathematics discovering itself through us."</p>
-    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // ==================== 3D TREFOIL KNOT ====================
+        const container = document.getElementById('trefoil-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+        
+        camera.position.z = 8;
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404080, 0.5);
+        scene.add(ambientLight);
+        
+        const pointLight1 = new THREE.PointLight(0xffd4a3, 1, 100);
+        pointLight1.position.set(5, 5, 5);
+        scene.add(pointLight1);
+        
+        const pointLight2 = new THREE.PointLight(0x60a5fa, 0.6, 100);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
+        
+        // Trefoil knot parametric function (p=2, q=3)
+        function torusKnot(t) {
+            const r = Math.cos(3 * t) + 2;
+            const x = r * Math.cos(2 * t);
+            const y = r * Math.sin(2 * t);
+            const z = -Math.sin(3 * t);
+            return new THREE.Vector3(x, y, z);
+        }
+        
+        // Create the knot curve
+        class TrefoilCurve extends THREE.Curve {
+            getPoint(t) {
+                return torusKnot(t * 2 * Math.PI);
+            }
+        }
+        
+        const curve = new TrefoilCurve();
+        
+        // Create knot geometry with iridescent shader material
+        const tubeGeometry = new THREE.TubeGeometry(curve, 200, 0.12, 16, true);
+        
+        const knotMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0 },
+                lightPosition: { value: pointLight1.position }
+            },
+            vertexShader: `
+                varying vec3 vNormal;
+                varying vec3 vViewPosition;
+                varying vec2 vUv;
+                
+                void main() {
+                    vNormal = normalize(normalMatrix * normal);
+                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                    vViewPosition = -mvPosition.xyz;
+                    vUv = uv;
+                    gl_Position = projectionMatrix * mvPosition;
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                varying vec3 vNormal;
+                varying vec3 vViewPosition;
+                varying vec2 vUv;
+                
+                void main() {
+                    vec3 normal = normalize(vNormal);
+                    vec3 viewDir = normalize(vViewPosition);
+                    
+                    // Fresnel for iridescence
+                    float fresnel = pow(1.0 - abs(dot(viewDir, normal)), 2.0);
+                    
+                    // Color shift based on view angle and position
+                    float hue = fresnel * 0.3 + vUv.x * 0.3 + time * 0.03;
+                    vec3 baseColor = vec3(0.12, 0.16, 0.28);
+                    vec3 iridescent = vec3(
+                        0.5 + 0.5 * sin(hue * 6.28 + 0.0),
+                        0.5 + 0.5 * sin(hue * 6.28 + 2.09),
+                        0.5 + 0.5 * sin(hue * 6.28 + 4.18)
+                    );
+                    
+                    // Blend base and iridescent
+                    vec3 color = mix(baseColor, iridescent, fresnel * 0.7);
+                    
+                    // Add rim lighting
+                    float rim = pow(fresnel, 3.0);
+                    color += vec3(1.0, 0.85, 0.6) * rim * 0.4;
+                    
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `
+        });
+        
+        const knotMesh = new THREE.Mesh(tubeGeometry, knotMaterial);
+        scene.add(knotMesh);
+        
+        // Concept nodes at key positions on the trefoil
+        const concepts = [
+            { 
+                name: "1st Law: Conservation", 
+                position: 0.00, 
+                description: "Past → Present. Energy is conserved through the crossing. The first chiral checkpoint.",
+                formula: "ρ > 1 (Arrow of time exists)",
+                color: 0xef4444
+            },
+            { 
+                name: "2nd Law: Entropy", 
+                position: 0.33, 
+                description: "Present → Future. Entropy increases. Irreversibility emerges. The coordination toll is paid.",
+                formula: "ρ ≥ 2 (Yang-Mills mass gap)",
+                color: 0x22c55e
+            },
+            { 
+                name: "3rd Law: Closure", 
+                position: 0.67, 
+                description: "The knot closes on itself. Absolute zero limit. Sustainability requires ρ ≤ π.",
+                formula: "ρ = π (Riemann Hypothesis)",
+                color: 0x3b82f6
+            }
+        ];
+        
+        const conceptNodes = [];
+        const nodeGeometry = new THREE.SphereGeometry(0.15, 16, 16);
+        
+        concepts.forEach(concept => {
+            const point = curve.getPoint(concept.position);
+            
+            // Outer glow
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: concept.color,
+                transparent: true,
+                opacity: 0.25
+            });
+            const glowMesh = new THREE.Mesh(
+                new THREE.SphereGeometry(0.35, 16, 16),
+                glowMaterial
+            );
+            glowMesh.position.copy(point);
+            scene.add(glowMesh);
+            
+            // Core node
+            const nodeMaterial = new THREE.MeshPhongMaterial({
+                color: concept.color,
+                emissive: concept.color,
+                emissiveIntensity: 0.5,
+                shininess: 100
+            });
+            const nodeMesh = new THREE.Mesh(nodeGeometry, nodeMaterial);
+            nodeMesh.position.copy(point);
+            nodeMesh.userData = concept;
+            scene.add(nodeMesh);
+            
+            conceptNodes.push({ 
+                mesh: nodeMesh, 
+                glow: glowMesh,
+                originalEmissive: 0.5,
+                concept: concept 
+            });
+        });
+        
+        // Interaction
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let hoveredNode = null;
+        let selectedNode = null;
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let rotationVelocity = { x: 0, y: 0 };
+        const autoRotateSpeed = 0.002;
+        
+        function onMouseMove(event) {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            
+            if (isDragging) {
+                const deltaX = event.clientX - previousMousePosition.x;
+                const deltaY = event.clientY - previousMousePosition.y;
+                
+                rotationVelocity.y = deltaX * 0.005;
+                rotationVelocity.x = deltaY * 0.005;
+                
+                knotMesh.rotation.y += rotationVelocity.y;
+                knotMesh.rotation.x += rotationVelocity.x;
+            }
+            
+            previousMousePosition = { x: event.clientX, y: event.clientY };
+            
+            // Raycasting for hover
+            if (!isDragging && !selectedNode) {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(conceptNodes.map(n => n.mesh));
+                
+                if (intersects.length > 0) {
+                    const node = conceptNodes.find(n => n.mesh === intersects[0].object);
+                    if (hoveredNode !== node) {
+                        if (hoveredNode) {
+                            hoveredNode.mesh.material.emissiveIntensity = hoveredNode.originalEmissive;
+                            hoveredNode.glow.material.opacity = 0.25;
+                        }
+                        hoveredNode = node;
+                        hoveredNode.mesh.material.emissiveIntensity = 1.0;
+                        hoveredNode.glow.material.opacity = 0.5;
+                        container.style.cursor = 'pointer';
+                    }
+                } else {
+                    if (hoveredNode) {
+                        hoveredNode.mesh.material.emissiveIntensity = hoveredNode.originalEmissive;
+                        hoveredNode.glow.material.opacity = 0.25;
+                        hoveredNode = null;
+                        container.style.cursor = 'grab';
+                    }
+                }
+            }
+        }
+        
+        function onMouseDown(event) {
+            if (event.target === renderer.domElement) {
+                isDragging = true;
+                rotationVelocity = { x: 0, y: 0 };
+                container.style.cursor = 'grabbing';
+            }
+        }
+        
+        function onMouseUp(event) {
+            isDragging = false;
+            container.style.cursor = 'grab';
+            
+            // Check for click on node
+            if (hoveredNode && Math.abs(rotationVelocity.x) < 0.01 && Math.abs(rotationVelocity.y) < 0.01) {
+                selectNode(hoveredNode);
+            }
+        }
+        
+        function selectNode(node) {
+            selectedNode = node;
+            const concept = node.concept;
+            
+            document.getElementById('node-name').textContent = concept.name;
+            document.getElementById('node-description').textContent = concept.description;
+            document.getElementById('node-formula').textContent = concept.formula;
+            document.getElementById('trefoil-info').classList.add('visible');
+            
+            node.mesh.material.emissiveIntensity = 1.5;
+            node.glow.material.opacity = 0.7;
+        }
+        
+        function closePanel() {
+            if (selectedNode) {
+                selectedNode.mesh.material.emissiveIntensity = selectedNode.originalEmissive;
+                selectedNode.glow.material.opacity = 0.25;
+                selectedNode = null;
+            }
+            document.getElementById('trefoil-info').classList.remove('visible');
+        }
+        
+        window.closePanel = closePanel;
+        
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mouseup', onMouseUp);
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+        
+        // Animation loop
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            time += 0.01;
+            knotMaterial.uniforms.time.value = time;
+            
+            // Auto-rotate when not interacting
+            if (!isDragging && !selectedNode) {
+                knotMesh.rotation.y += autoRotateSpeed;
+            } else if (!isDragging) {
+                rotationVelocity.x *= 0.95;
+                rotationVelocity.y *= 0.95;
+                
+                if (Math.abs(rotationVelocity.x) > 0.0001 || Math.abs(rotationVelocity.y) > 0.0001) {
+                    knotMesh.rotation.x += rotationVelocity.x;
+                    knotMesh.rotation.y += rotationVelocity.y;
+                }
+            }
+            
+            // Update node positions to follow knot rotation
+            conceptNodes.forEach(({ mesh, glow, concept }) => {
+                const point = curve.getPoint(concept.position);
+                const rotatedPoint = point.clone();
+                rotatedPoint.applyEuler(knotMesh.rotation);
+                mesh.position.copy(rotatedPoint);
+                glow.position.copy(rotatedPoint);
+            });
+            
+            // Pulse node glows
+            conceptNodes.forEach(node => {
+                if (node !== selectedNode && node !== hoveredNode) {
+                    node.glow.material.opacity = 0.25 + Math.sin(time + node.concept.position * 10) * 0.08;
+                }
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // ==================== CALCULATOR ====================
+        const knownParticles = {
+            'sum': {
+                '101.317851006+105.446623052': { name: 'Muon', measured: 206.768, unit: 'mₑ' },
+                '14.134725142+122.946829294': { name: 'α⁻¹ (fine structure)', measured: 137.036, unit: '' }
+            },
+            'prod2': {
+                '37.586178159*92.491899271': { name: 'Tau', measured: 3477.2, unit: 'mₑ' },
+                '21.022039639*87.425274613': { name: 'Proton', measured: 1836.2, unit: 'mₑ' },
+                '43.327073281*77.144840069': { name: 'Mass Gap', measured: 3346, unit: 'mₑ' }
+            },
+            'prod3': {
+                '30.424876126*59.347044003*98.831194218': { name: 'Z Boson', measured: 178450, unit: 'mₑ' },
+                '21.022039639*75.704690699*98.831194218': { name: 'W Boson', measured: 157298, unit: 'mₑ' }
+            }
+        };
+        
+        let currentOperation = 'sum';
+        
+        function setOperation(op) {
+            currentOperation = op;
+            document.querySelectorAll('.operation-toggle button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('op-' + op).classList.add('active');
+            document.getElementById('gamma3-row').style.display = op === 'prod3' ? 'flex' : 'none';
+            calculate();
+        }
+        
+        function calculate() {
+            const g1 = parseFloat(document.getElementById('gamma1').value);
+            const g2 = parseFloat(document.getElementById('gamma2').value);
+            const g3 = parseFloat(document.getElementById('gamma3').value);
+            
+            let result, formula, key;
+            const g1Label = document.getElementById('gamma1').options[document.getElementById('gamma1').selectedIndex].text.split(' = ')[0];
+            const g2Label = document.getElementById('gamma2').options[document.getElementById('gamma2').selectedIndex].text.split(' = ')[0];
+            const g3Label = document.getElementById('gamma3').options[document.getElementById('gamma3').selectedIndex].text.split(' = ')[0];
+            
+            if (currentOperation === 'sum') {
+                result = g1 + g2;
+                formula = `${g1Label} + ${g2Label} = ${g1.toFixed(4)} + ${g2.toFixed(4)}`;
+                key = `${g1}+${g2}`;
+            } else if (currentOperation === 'prod2') {
+                result = g1 * g2;
+                formula = `${g1Label} × ${g2Label} = ${g1.toFixed(4)} × ${g2.toFixed(4)}`;
+                key = `${g1}*${g2}`;
+            } else {
+                result = g1 * g2 * g3;
+                formula = `${g1Label} × ${g2Label} × ${g3Label} = ${g1.toFixed(4)} × ${g2.toFixed(4)} × ${g3.toFixed(4)}`;
+                key = `${g1}*${g2}*${g3}`;
+            }
+            
+            document.getElementById('calc-formula').textContent = formula;
+            document.getElementById('calc-value').textContent = result.toLocaleString('en-US', { maximumFractionDigits: 1 });
+            
+            // Check for known particle match
+            const particles = knownParticles[currentOperation];
+            let matchText = '';
+            if (particles && particles[key]) {
+                const p = particles[key];
+                const error = Math.abs((result - p.measured) / p.measured * 100).toFixed(4);
+                matchText = `≈ ${p.name} (measured: ${p.measured.toLocaleString()} ${p.unit}, error: ${error}%)`;
+            }
+            document.getElementById('calc-match').textContent = matchText;
+        }
+        
+        window.setOperation = setOperation;
+        window.calculate = calculate;
+        
+        // Initialize calculator
+        calculate();
+    </script>
 </body>
 </html>
