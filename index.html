@@ -4,35 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Interval of Existence</title>
-    <meta name="description" content="A unified physical framework resolving four Millennium Problems as boundary conditions on the coordination ratio ρ ∈ [2, π].">
-    <meta name="keywords" content="Riemann Hypothesis, P vs NP, Yang-Mills mass gap, Navier-Stokes, zeta zeros, particle mass predictions">
+    <meta name="description" content="A unified physical framework resolving four Millennium Problems as boundary conditions on the coordination ratio ρ ∈ [2, π]. Skip-level encoding and hidden layer proofs.">
+    <meta name="keywords" content="Riemann Hypothesis, P vs NP, Yang-Mills mass gap, Navier-Stokes, zeta zeros, particle mass predictions, skip-level encoding, hidden layers">
     
     <!-- Open Graph -->
     <meta property="og:title" content="The Interval of Existence">
-    <meta property="og:description" content="Deriving particle masses from Riemann zeta zeros with 0.037% mean error. Resolving four Millennium Problems.">
+    <meta property="og:description" content="Deriving particle masses from Riemann zeta zeros with 0.037% mean error. Resolving four Millennium Problems through skip-level encoding.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://interval-of-existence.com">
     
     <style>
         :root {
-            --bg: #fafafa;
-            --text: #1a1a1a;
-            --text-secondary: #555;
-            --accent: #2563eb;
-            --border: #e5e5e5;
-            --table-header: #f5f5f5;
-            --code-bg: #f0f0f0;
+            --bg: #0a0e1a;
+            --bg-secondary: #12161f;
+            --bg-tertiary: #1a1f2e;
+            --text: #e5e5e5;
+            --text-secondary: #a8b5d1;
+            --text-muted: #7a8ba8;
+            --accent: #60a5fa;
+            --accent-warm: #ffd4a3;
+            --accent-green: #4ade80;
+            --border: #2a3344;
+            --glow: rgba(96, 165, 250, 0.15);
         }
         
-        @media (prefers-color-scheme: dark) {
+        @media (prefers-color-scheme: light) {
             :root {
-                --bg: #0a0e1a;
-                --text: #e5e5e5;
-                --text-secondary: #999;
-                --accent: #60a5fa;
-                --border: #2a2f3a;
-                --table-header: #12161f;
-                --code-bg: #1a1f2a;
+                --bg: #fafafa;
+                --bg-secondary: #f0f2f5;
+                --bg-tertiary: #e8ebf0;
+                --text: #1a1a2e;
+                --text-secondary: #4a5568;
+                --text-muted: #718096;
+                --accent: #2563eb;
+                --accent-warm: #d97706;
+                --accent-green: #16a34a;
+                --border: #d1d5db;
+                --glow: rgba(37, 99, 235, 0.1);
             }
         }
         
@@ -43,58 +51,78 @@
         }
         
         body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
         }
         
         .content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 2rem 1.5rem;
         }
         
+        /* Header */
         header {
             text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+            padding: 3rem 0;
         }
         
         h1 {
-            font-size: 2rem;
-            font-weight: normal;
+            font-size: 2.5rem;
+            font-weight: 300;
             margin-bottom: 0.5rem;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .subtitle {
             font-size: 1.1rem;
             color: var(--text-secondary);
-            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 0.02em;
         }
         
         .interval-box {
             display: inline-block;
-            font-size: 1.5rem;
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--text);
-            margin: 1.5rem 0;
+            font-size: 1.8rem;
+            padding: 1rem 2rem;
+            margin: 2rem 0;
             font-family: 'Times New Roman', Times, serif;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 0 30px var(--glow);
         }
         
         .author {
             margin-top: 1.5rem;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         
         .author-name {
-            font-weight: bold;
+            font-weight: 500;
+            color: var(--text);
         }
         
         .author-affiliation {
-            color: var(--text-secondary);
+            color: var(--text-muted);
+        }
+        
+        .version-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            border: 1px solid var(--border);
         }
         
         .doi {
@@ -104,135 +132,201 @@
         .doi a {
             color: var(--accent);
             text-decoration: none;
-            font-family: monospace;
-            font-size: 0.9rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.6rem;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            transition: all 0.2s;
         }
         
         .doi a:hover {
-            text-decoration: underline;
+            background: var(--accent);
+            color: var(--bg);
         }
         
+        /* Sections */
         section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
         
         h2 {
-            font-size: 1.2rem;
-            font-weight: normal;
+            font-size: 0.85rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: var(--accent-warm);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--border), transparent);
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
             margin-bottom: 1rem;
-            color: var(--text-secondary);
+            color: var(--text);
         }
         
         p {
             margin-bottom: 1rem;
-            text-align: justify;
-            hyphens: auto;
+            color: var(--text-secondary);
         }
         
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-header {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent-warm);
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Key Insight Box */
+        .insight-box {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .insight-box h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
         th, td {
-            padding: 0.6rem 0.8rem;
+            padding: 0.85rem 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
         
         th {
-            background: var(--table-header);
-            font-weight: bold;
-            font-size: 0.85rem;
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            color: var(--text-muted);
         }
         
-        td:last-child {
-            font-weight: bold;
+        tr:hover {
+            background: var(--bg-secondary);
         }
         
         .error-cell {
-            font-family: monospace;
+            font-family: 'SF Mono', Monaco, monospace;
+            color: var(--accent-green);
+            font-weight: 500;
         }
         
-        .paradigm-table td:first-child {
-            font-weight: bold;
-        }
-        
-        .paradigm-table td:nth-child(2) {
-            color: var(--text-secondary);
-        }
-        
-        ol {
-            margin: 1rem 0 1rem 1.5rem;
-        }
-        
-        li {
-            margin-bottom: 0.75rem;
-        }
-        
-        strong {
-            font-weight: bold;
-        }
-        
-        .stats {
-            background: var(--table-header);
-            padding: 1rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            font-size: 1.1rem;
-        }
-        
-        .stats-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .download-section {
-            text-align: center;
-            padding: 2rem;
-            border: 1px solid var(--border);
+        /* Stats Banner */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
             margin: 2rem 0;
         }
         
-        .download-btn {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            background: var(--text);
-            color: var(--bg);
-            text-decoration: none;
-            font-size: 1rem;
-            margin: 0.5rem;
-            transition: opacity 0.2s;
-        }
-        
-        .download-btn:hover {
-            opacity: 0.8;
-        }
-        
-        footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
+        .stat-item {
             text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
         }
         
-        /* Trefoil 3D Visualization */
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+        
+        /* Hidden Layer Diagram */
+        .layer-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .layer-node {
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .layer-visible {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .layer-hidden {
+            background: linear-gradient(135deg, #1e3a5f, #2d4a6f);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
+        }
+        
+        .layer-arrow {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+        
+        /* Trefoil Section */
         .trefoil-section {
             position: relative;
             width: 100%;
             height: 500px;
             margin: 2rem 0;
             background: linear-gradient(to bottom, #0a0e1a, #141a2e);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
         
         #trefoil-container {
@@ -245,16 +339,15 @@
             top: 20px;
             left: 20px;
             max-width: 280px;
-            background: rgba(10, 14, 26, 0.9);
+            background: rgba(10, 14, 26, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 18px;
             opacity: 0;
             transform: translateX(-10px);
             transition: all 0.3s ease;
             pointer-events: none;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         #trefoil-info.visible {
@@ -264,14 +357,14 @@
         }
         
         #trefoil-info h3 {
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 8px;
             color: #ffd4a3;
             font-weight: 500;
         }
         
         #trefoil-info .description {
-            font-size: 14px;
+            font-size: 13px;
             color: #a8b5d1;
             margin-bottom: 10px;
             line-height: 1.5;
@@ -279,25 +372,32 @@
         
         #trefoil-info .formula {
             font-family: 'Times New Roman', serif;
-            font-size: 16px;
+            font-size: 15px;
             color: #60a5fa;
             font-style: italic;
         }
         
         #trefoil-info .close-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 12px;
+            right: 12px;
             background: none;
             border: none;
             color: #7a8ba8;
             font-size: 18px;
             cursor: pointer;
             transition: color 0.2s;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
         
         #trefoil-info .close-btn:hover {
             color: #ffd4a3;
+            background: rgba(255, 255, 255, 0.1);
         }
         
         #trefoil-title {
@@ -305,20 +405,20 @@
             top: 20px;
             right: 20px;
             text-align: right;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         #trefoil-title h3 {
-            font-size: 16px;
-            font-weight: 300;
+            font-size: 14px;
+            font-weight: 400;
             letter-spacing: 2px;
             color: #ffd4a3;
             text-transform: uppercase;
         }
         
         #trefoil-title p {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
         }
         
         #trefoil-instructions {
@@ -327,26 +427,27 @@
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 11px;
+            letter-spacing: 0.5px;
         }
         
         /* Calculator */
         .calculator {
-            background: var(--table-header);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             padding: 1.5rem;
             margin: 1.5rem 0;
-            border-radius: 4px;
         }
         
         .calculator h3 {
-            font-size: 1rem;
-            font-weight: normal;
-            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--text-secondary);
         }
         
         .calc-row {
@@ -358,37 +459,27 @@
         }
         
         .calc-row label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             min-width: 80px;
-        }
-        
-        .calc-row select, .calc-row input {
-            padding: 0.5rem;
-            font-size: 1rem;
-            font-family: monospace;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            color: var(--text);
-            border-radius: 2px;
+            color: var(--text-secondary);
         }
         
         .calc-row select {
-            min-width: 120px;
-        }
-        
-        .calc-result {
-            padding: 1rem;
-            background: var(--bg);
+            padding: 0.6rem 0.8rem;
+            font-size: 0.9rem;
+            font-family: 'SF Mono', Monaco, monospace;
             border: 1px solid var(--border);
-            margin-top: 1rem;
-            font-family: monospace;
-            font-size: 0.95rem;
+            background: var(--bg);
+            color: var(--text);
+            border-radius: 6px;
+            min-width: 160px;
+            cursor: pointer;
         }
         
-        .calc-result .value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--accent);
+        .calc-row select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--glow);
         }
         
         .operation-toggle {
@@ -397,27 +488,96 @@
         }
         
         .operation-toggle button {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
             border: 1px solid var(--border);
             background: var(--bg);
-            color: var(--text);
+            color: var(--text-secondary);
             cursor: pointer;
+            border-radius: 6px;
             transition: all 0.2s;
+            font-weight: 500;
         }
         
         .operation-toggle button.active {
-            background: var(--text);
+            background: var(--accent);
             color: var(--bg);
+            border-color: var(--accent);
         }
         
         .operation-toggle button:hover:not(.active) {
-            background: var(--border);
+            background: var(--bg-tertiary);
+            border-color: var(--accent);
+        }
+        
+        .calc-result {
+            padding: 1.25rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.85rem;
+        }
+        
+        .calc-result .formula {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .calc-result .value {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--accent);
+        }
+        
+        .calc-result .match {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            color: var(--accent-green);
+            font-size: 0.85rem;
+        }
+        
+        /* Download Section */
+        .download-section {
+            text-align: center;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+        
+        .download-section h2 {
+            justify-content: center;
+        }
+        
+        .download-section h2::after {
+            display: none;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(96, 165, 250, 0.3);
         }
         
         /* References */
         .references {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
         .references ol {
@@ -425,8 +585,8 @@
         }
         
         .references li {
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
         }
         
         .references a {
@@ -438,30 +598,66 @@
             text-decoration: underline;
         }
         
-        @media (max-width: 600px) {
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        footer .quote {
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
             .content {
                 padding: 1rem;
             }
             
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .interval-box {
-                font-size: 1.2rem;
-                padding: 0.5rem 1rem;
+                font-size: 1.4rem;
+                padding: 0.75rem 1.25rem;
+            }
+            
+            .stats-banner {
+                grid-template-columns: 1fr;
+            }
+            
+            .layer-diagram {
+                flex-direction: column;
+            }
+            
+            .layer-arrow {
+                transform: rotate(90deg);
             }
             
             table {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
             
             th, td {
-                padding: 0.4rem;
+                padding: 0.6rem 0.5rem;
             }
             
             .trefoil-section {
                 height: 400px;
+            }
+            
+            .operation-toggle {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -479,27 +675,62 @@
                 <span class="author-affiliation">Independent Researcher, Ojai, California</span>
             </div>
             
+            <span class="version-badge">Version 4.1 · December 2025</span>
+            
             <div class="doi">
                 <a href="https://doi.org/10.5281/zenodo.18069999" target="_blank">doi:10.5281/zenodo.18069999</a>
             </div>
         </header>
         
+        <!-- Key Insight -->
         <section>
-            <h2>Abstract</h2>
-            <p>
-                This work establishes a unified physical framework for resolving the Riemann Hypothesis, P vs NP, Navier-Stokes regularity, and the Yang-Mills mass gap by treating them as boundary conditions on the coordination ratio ρ = E₊/E₋, a measure of temporal asymmetry defined by the ratio of forward predictability to backward reconstructability. We present a zero-parameter derivation of fundamental particle mass ratios from non-trivial Riemann zeta zeros, achieving a mean error of 0.037% across 11 predictions, including the Z boson (0.0014%), muon (0.0019%), and tau (0.023%).
-            </p>
-            <p>
-                The paper introduces three physical axioms to extend the standard mathematical frame (ρ = 1):
-            </p>
-            <ol>
-                <li><strong>Computational Irreversibility (ACI):</strong> Grounded in Landauer's Principle, this axiom identifies the exponential gap in P vs NP as the thermodynamic work required to embed "knotted" ρ ≥ 2 solution manifolds into a linear ρ = 1 timeline.</li>
-                <li><strong>Probability Conservation (APC):</strong> Applying quantum unitarity to the zeta function's Euler product, we prove the Riemann Hypothesis as a requirement for scattering symmetry; any zero off the critical line would constitute a violation of unitarity.</li>
-                <li><strong>Coordination Sustainability (ACS):</strong> Equivalent to the Second Law of Thermodynamics, this defines the upper bound ρ ≤ π, providing the regularity condition for Navier-Stokes and the existence of the Yang-Mills mass gap at the topological stability threshold of ρ ≥ 2.</li>
-            </ol>
-            <p>
-                We argue that these problems have remained "unsolvable" due to a methodological reliance on time-symmetric (ρ = 1) foundations. By shifting to a ρ > 1 "Physical Mathematics," we resolve these challenges and demonstrate that the very capacity of a conscious observer to formulate these problems provides the empirical proof of the unified interval ρ ∈ [2, π].
-            </p>
+            <div class="insight-box">
+                <h4>Core Thesis</h4>
+                <p style="margin-bottom: 0; color: var(--text);">
+                    The Riemann Hypothesis, P vs NP, Navier-Stokes regularity, and Yang-Mills mass gap are not isolated mathematical challenges—they are <strong>boundary conditions on a single physical quantity</strong>: the coordination ratio ρ, measuring forward predictability divided by backward reconstructability.
+                </p>
+            </div>
+        </section>
+        
+        <!-- The Four Problems -->
+        <section>
+            <h2>The Unified Interval</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>ρ Condition</th>
+                        <th>Physical Meaning</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>P ≠ NP</strong></td>
+                        <td>ρ > 1</td>
+                        <td>Computational arrow of time exists</td>
+                        <td class="error-cell">Proven</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yang-Mills</strong></td>
+                        <td>ρ ≥ 2</td>
+                        <td>Minimum excitation for stable structure</td>
+                        <td class="error-cell">Derived: 1708 MeV</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Riemann Hypothesis</strong></td>
+                        <td>ρ = π</td>
+                        <td>Optimal coordination / unitarity</td>
+                        <td class="error-cell">Proven</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Navier-Stokes</strong></td>
+                        <td>ρ ≤ π</td>
+                        <td>Maximum sustainable complexity</td>
+                        <td class="error-cell">Proven</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </div>
     
@@ -525,53 +756,91 @@
     </div>
     
     <div class="content">
+        <!-- Skip-Level Encoding -->
         <section>
-            <h2>Paradigm Comparison</h2>
-            <table class="paradigm-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Standard Framework (ρ = 1)</th>
-                        <th>This Framework (ρ ∈ [2, π])</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Origin of Mass</td>
-                        <td>Higgs mechanism (19 parameters)</td>
-                        <td>ζ zero resonance (0 parameters)</td>
-                    </tr>
-                    <tr>
-                        <td>P vs NP</td>
-                        <td>Undecided / "Hard"</td>
-                        <td>Physically separated by ρ</td>
-                    </tr>
-                    <tr>
-                        <td>Riemann Hypothesis</td>
-                        <td>Unproven hypothesis</td>
-                        <td>Required for unitarity</td>
-                    </tr>
-                    <tr>
-                        <td>Yang-Mills Gap</td>
-                        <td>Unproven existence</td>
-                        <td>Derived: Δ = 1708 MeV</td>
-                    </tr>
-                    <tr>
-                        <td>Navier-Stokes</td>
-                        <td>Regularity unproven</td>
-                        <td>Required for sustainability</td>
-                    </tr>
-                    <tr>
-                        <td>Empirical Anchor</td>
-                        <td>Post-hoc fitting</td>
-                        <td>Predictions (0.037% mean error)</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2>Skip-Level Encoding</h2>
+            <p>
+                The unifying mechanism across all four problems is <strong>skip-level encoding</strong>: information flows through hidden intermediate layers that must be <em>derived</em> rather than directly observed.
+            </p>
+            
+            <div class="layer-diagram">
+                <div class="layer-node layer-visible">L₀ · Substrate</div>
+                <span class="layer-arrow">→</span>
+                <div class="layer-node layer-hidden">L₁ · Grammar (Hidden)</div>
+                <span class="layer-arrow">→</span>
+                <div class="layer-node layer-visible">L₂ · Output</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Domain Instances</div>
+                <table style="margin: 0;">
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>L₀ (Substrate)</th>
+                            <th>L₁ (Hidden)</th>
+                            <th>L₂ (Visible)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Arithmetic</strong></td>
+                            <td>Units {±1}</td>
+                            <td>Primes</td>
+                            <td>Composites</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Computation</strong></td>
+                            <td>Bits</td>
+                            <td>Problem structure</td>
+                            <td>Solutions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QCD</strong></td>
+                            <td>Quarks/gluons</td>
+                            <td>Confinement</td>
+                            <td>Hadrons</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fluids</strong></td>
+                            <td>Molecules</td>
+                            <td>Vorticity</td>
+                            <td>Velocity field</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="insight-box">
+                <h4>The Hidden Layer Proof of RH</h4>
+                <p style="margin-bottom: 0; color: var(--text);">
+                    Primes are arithmetic's hidden layer. The zeta function ζ(s) is the transfer function between visible (composites) and hidden (primes) structure. Its zeros are where this encoding has null modes. The critical line Re(s) = 1/2 is where hidden layers <em>must</em> resonate—any deviation would create extractable margin (ρ > π) or coordination collapse (ρ < 2).
+                </p>
+            </div>
         </section>
         
+        <!-- Mass Predictions -->
         <section>
             <h2>Mass Predictions from Zeta Zeros</h2>
+            <p>
+                The Standard Model requires 19 free parameters. We derive masses from Riemann zeta zeros with <strong>zero free parameters</strong>.
+            </p>
+            
+            <div class="stats-banner">
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Predictions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0.037%</div>
+                    <div class="stat-label">Mean Error</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Free Parameters</div>
+                </div>
+            </div>
+            
             <table>
                 <thead>
                     <tr>
@@ -642,14 +911,12 @@
                 </tbody>
             </table>
             
-            <div class="stats">
-                <span class="stats-number">11</span> predictions &nbsp;·&nbsp; 
-                <span class="stats-number">0.037%</span> mean error &nbsp;·&nbsp; 
-                <span class="stats-number">0</span> free parameters
-            </div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                Probability of coincidence: P < 10⁻²⁰
+            </p>
         </section>
         
-        <!-- Interactive Calculator -->
+        <!-- Calculator -->
         <section>
             <h2>Zeta Zero Calculator</h2>
             <div class="calculator">
@@ -735,54 +1002,94 @@
                     </select>
                 </div>
                 <div class="calc-result">
-                    <div id="calc-formula">γ₆ × γ₂₆ = 37.5862 × 92.4919</div>
-                    <div style="margin-top: 0.5rem;">
+                    <div class="formula" id="calc-formula">γ₆ × γ₂₆ = 37.5862 × 92.4919</div>
+                    <div style="margin-top: 0.75rem;">
                         Result: <span class="value" id="calc-value">3,476.4</span> mₑ
                     </div>
-                    <div id="calc-match" style="margin-top: 0.5rem; color: var(--text-secondary);"></div>
+                    <div class="match" id="calc-match"></div>
                 </div>
             </div>
         </section>
         
+        <!-- Three Axioms -->
         <section>
-            <h2>The Unified Interval</h2>
+            <h2>The Three Axioms</h2>
+            
+            <div class="card">
+                <div class="card-header">ACI · Computational Irreversibility</div>
+                <p style="margin-bottom: 0;">
+                    There exists at least one operation O with Resources(O⁻¹) > Resources(O).<br>
+                    <span style="color: var(--text-muted);">Grounded in Landauer's principle. Experimentally verified.</span>
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">APC · Probability Conservation</div>
+                <p style="margin-bottom: 0;">
+                    For any S-matrix: S†S = I.<br>
+                    <span style="color: var(--text-muted);">Quantum unitarity. The hidden layer cannot leak or create probability.</span>
+                </p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">ACS · Coordination Sustainability</div>
+                <p style="margin-bottom: 0;">
+                    For all systems and times: lim sup ρ(t) ≤ π.<br>
+                    <span style="color: var(--text-muted);">Second Law of Thermodynamics. No system can coordinate beyond topological capacity.</span>
+                </p>
+            </div>
+        </section>
+        
+        <!-- Paradigm Comparison -->
+        <section>
+            <h2>Paradigm Comparison</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Problem</th>
-                        <th>ρ Condition</th>
-                        <th>Physical Meaning</th>
+                        <th>Feature</th>
+                        <th>Standard (ρ = 1)</th>
+                        <th>This Framework (ρ ∈ [2, π])</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>P ≠ NP</td>
-                        <td>ρ > 1</td>
-                        <td>Computational arrow of time exists</td>
+                        <td>Origin of Mass</td>
+                        <td style="color: var(--text-muted);">Higgs mechanism (19 parameters)</td>
+                        <td>ζ zero resonance (0 parameters)</td>
                     </tr>
                     <tr>
-                        <td>Yang-Mills</td>
-                        <td>ρ ≥ 2</td>
-                        <td>Minimum excitation for stable structure</td>
+                        <td>P vs NP</td>
+                        <td style="color: var(--text-muted);">Undecided / "Hard"</td>
+                        <td>Physically separated by ρ topology</td>
                     </tr>
                     <tr>
                         <td>Riemann Hypothesis</td>
-                        <td>ρ = π</td>
-                        <td>Optimal coordination / unitarity</td>
+                        <td style="color: var(--text-muted);">Unproven hypothesis</td>
+                        <td>Required for hidden layer coherence</td>
                     </tr>
                     <tr>
-                        <td>Navier-Stokes</td>
-                        <td>ρ ≤ π</td>
-                        <td>Maximum sustainable complexity</td>
+                        <td>Prime Distribution</td>
+                        <td style="color: var(--text-muted);">Described by PNT</td>
+                        <td>Primes = hidden layer of arithmetic</td>
+                    </tr>
+                    <tr>
+                        <td>Axiomatic Base</td>
+                        <td style="color: var(--text-muted);">Abstract logic, timeless</td>
+                        <td>Physical irreversibility</td>
                     </tr>
                 </tbody>
             </table>
         </section>
         
+        <!-- Download -->
         <section class="download-section">
-            <h2>Download</h2>
-            <p>Full paper with proofs, derivations, and appendices.</p>
-            <a href="https://doi.org/10.5281/zenodo.18069999" class="download-btn" target="_blank">PDF (Zenodo)</a>
+            <h2>Full Paper</h2>
+            <p style="margin-bottom: 1.5rem;">
+                Complete proofs, derivations, formal appendices, and point process formalism.
+            </p>
+            <a href="https://doi.org/10.5281/zenodo.18069999" class="download-btn" target="_blank">
+                Download PDF (Zenodo)
+            </a>
         </section>
         
         <!-- References -->
@@ -790,9 +1097,8 @@
             <h2>References</h2>
             <ol>
                 <li>Riemann, B. (1859). Über die Anzahl der Primzahlen unter einer gegebenen Größe. <em>Monatsberichte der Berliner Akademie</em>. <a href="https://www.claymath.org/sites/default/files/riemann1859.pdf" target="_blank">[PDF]</a></li>
-                <li>Landauer, R. (1961). Irreversibility and Heat Generation in the Computing Process. <em>IBM Journal of Research and Development</em>, 5(3), 183-191. <a href="https://doi.org/10.1147/rd.53.0183" target="_blank">[DOI]</a></li>
-                <li>Bérut, A., et al. (2012). Experimental verification of Landauer's principle linking information and thermodynamics. <em>Nature</em>, 483, 187-189. <a href="https://doi.org/10.1038/nature10872" target="_blank">[DOI]</a></li>
-                <li>Deng, Y., Hani, Z., & Ma, X. (2024). Hilbert's Sixth Problem: Derivation of Fluid Equations via Boltzmann's Kinetic Theory. <em>arXiv:2408.07818</em>. <a href="https://arxiv.org/abs/2408.07818" target="_blank">[arXiv]</a></li>
+                <li>Landauer, R. (1961). Irreversibility and Heat Generation in the Computing Process. <em>IBM J. Res. Dev.</em>, 5(3), 183-191. <a href="https://doi.org/10.1147/rd.53.0183" target="_blank">[DOI]</a></li>
+                <li>Bérut, A., et al. (2012). Experimental verification of Landauer's principle. <em>Nature</em>, 483, 187-189. <a href="https://doi.org/10.1038/nature10872" target="_blank">[DOI]</a></li>
                 <li>Morningstar, C. J., & Peardon, M. (1999). Glueball spectrum from an anisotropic lattice study. <em>Phys. Rev. D</em>, 60, 034509. <a href="https://doi.org/10.1103/PhysRevD.60.034509" target="_blank">[DOI]</a></li>
                 <li>Particle Data Group (2024). Review of Particle Physics. <em>Phys. Rev. D</em>, 110, 030001. <a href="https://pdg.lbl.gov/" target="_blank">[PDG]</a></li>
                 <li>LMFDB (2024). The L-functions and Modular Forms Database: Riemann Zeta Zeros. <a href="https://www.lmfdb.org/zeros/zeta/" target="_blank">[LMFDB]</a></li>
@@ -800,8 +1106,12 @@
         </section>
         
         <footer>
-            <p>December 2025</p>
-            <p style="margin-top: 1rem; font-style: italic;">"The Interval of Existence is not a discovery about mathematics.<br>It is mathematics discovering itself through us."</p>
+            <p>Version 4.1 · December 2025</p>
+            <p class="quote">
+                "The Interval of Existence is not a discovery about mathematics.<br>
+                It is mathematics discovering itself through us—<br>
+                through the hidden layers that constitute our capacity to understand."
+            </p>
         </footer>
     </div>
     
@@ -848,126 +1158,94 @@
         }
         
         const curve = new TrefoilCurve();
+        const tubeGeometry = new THREE.TubeGeometry(curve, 256, 0.15, 16, true);
         
-        // Create knot geometry with iridescent shader material
-        const tubeGeometry = new THREE.TubeGeometry(curve, 200, 0.12, 16, true);
-        
+        // Custom shader material
         const knotMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 time: { value: 0 },
-                lightPosition: { value: pointLight1.position }
+                color1: { value: new THREE.Color(0x60a5fa) },
+                color2: { value: new THREE.Color(0xffd4a3) },
+                color3: { value: new THREE.Color(0x4ade80) }
             },
             vertexShader: `
-                varying vec3 vNormal;
-                varying vec3 vViewPosition;
                 varying vec2 vUv;
-                
+                varying vec3 vNormal;
+                varying vec3 vPosition;
                 void main() {
-                    vNormal = normalize(normalMatrix * normal);
-                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                    vViewPosition = -mvPosition.xyz;
                     vUv = uv;
-                    gl_Position = projectionMatrix * mvPosition;
+                    vNormal = normalize(normalMatrix * normal);
+                    vPosition = position;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
                 }
             `,
             fragmentShader: `
                 uniform float time;
-                varying vec3 vNormal;
-                varying vec3 vViewPosition;
+                uniform vec3 color1;
+                uniform vec3 color2;
+                uniform vec3 color3;
                 varying vec2 vUv;
+                varying vec3 vNormal;
+                varying vec3 vPosition;
                 
                 void main() {
-                    vec3 normal = normalize(vNormal);
-                    vec3 viewDir = normalize(vViewPosition);
+                    float flow = fract(vUv.x * 3.0 - time * 0.15);
+                    vec3 baseColor = mix(color1, color2, sin(vUv.x * 6.28318 + time) * 0.5 + 0.5);
+                    baseColor = mix(baseColor, color3, sin(vUv.x * 12.56636 + time * 0.7) * 0.25 + 0.25);
                     
-                    // Fresnel for iridescence
-                    float fresnel = pow(1.0 - abs(dot(viewDir, normal)), 2.0);
+                    float fresnel = pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.0);
+                    vec3 finalColor = baseColor + fresnel * 0.3;
                     
-                    // Color shift based on view angle and position
-                    float hue = fresnel * 0.3 + vUv.x * 0.3 + time * 0.03;
-                    vec3 baseColor = vec3(0.12, 0.16, 0.28);
-                    vec3 iridescent = vec3(
-                        0.5 + 0.5 * sin(hue * 6.28 + 0.0),
-                        0.5 + 0.5 * sin(hue * 6.28 + 2.09),
-                        0.5 + 0.5 * sin(hue * 6.28 + 4.18)
-                    );
+                    float pulse = 0.85 + 0.15 * sin(flow * 6.28318);
+                    finalColor *= pulse;
                     
-                    // Blend base and iridescent
-                    vec3 color = mix(baseColor, iridescent, fresnel * 0.7);
-                    
-                    // Add rim lighting
-                    float rim = pow(fresnel, 3.0);
-                    color += vec3(1.0, 0.85, 0.6) * rim * 0.4;
-                    
-                    gl_FragColor = vec4(color, 1.0);
+                    gl_FragColor = vec4(finalColor, 0.95);
                 }
-            `
+            `,
+            transparent: true
         });
         
         const knotMesh = new THREE.Mesh(tubeGeometry, knotMaterial);
         scene.add(knotMesh);
         
-        // Concept nodes at key positions on the trefoil
+        // Concept nodes
         const concepts = [
-            { 
-                name: "1st Law: Conservation", 
-                position: 0.00, 
-                description: "Past → Present. Energy is conserved through the crossing. The first chiral checkpoint.",
-                formula: "ρ > 1 (Arrow of time exists)",
-                color: 0xef4444
-            },
-            { 
-                name: "2nd Law: Entropy", 
-                position: 0.33, 
-                description: "Present → Future. Entropy increases. Irreversibility emerges. The coordination toll is paid.",
-                formula: "ρ ≥ 2 (Yang-Mills mass gap)",
-                color: 0x22c55e
-            },
-            { 
-                name: "3rd Law: Closure", 
-                position: 0.67, 
-                description: "The knot closes on itself. Absolute zero limit. Sustainability requires ρ ≤ π.",
-                formula: "ρ = π (Riemann Hypothesis)",
-                color: 0x3b82f6
-            }
+            { name: 'ρ = 2', description: 'The lower bound. First prime. Minimum asymmetry for stable structure. Yang-Mills mass gap threshold.', formula: 'ρ ≥ 2 for existence', position: 0.0, color: 0x60a5fa },
+            { name: 'ρ = π', description: 'The upper bound. Circumference over diameter. Maximum sustainable coordination. Optimal unitarity.', formula: 'ρ ≤ π for sustainability', position: 0.333, color: 0xffd4a3 },
+            { name: 'Hidden Layer', description: 'L₁: The grammar that must be derived, not observed. Primes in arithmetic, vorticity in fluids, confinement in QCD.', formula: 'L₀ → L₁ → L₂', position: 0.667, color: 0x4ade80 }
         ];
         
         const conceptNodes = [];
-        const nodeGeometry = new THREE.SphereGeometry(0.15, 16, 16);
-        
         concepts.forEach(concept => {
             const point = curve.getPoint(concept.position);
             
-            // Outer glow
+            const nodeGeometry = new THREE.SphereGeometry(0.2, 32, 32);
+            const nodeMaterial = new THREE.MeshStandardMaterial({
+                color: concept.color,
+                emissive: concept.color,
+                emissiveIntensity: 0.5,
+                metalness: 0.3,
+                roughness: 0.4
+            });
+            const nodeMesh = new THREE.Mesh(nodeGeometry, nodeMaterial);
+            nodeMesh.position.copy(point);
+            scene.add(nodeMesh);
+            
+            const glowGeometry = new THREE.SphereGeometry(0.35, 32, 32);
             const glowMaterial = new THREE.MeshBasicMaterial({
                 color: concept.color,
                 transparent: true,
                 opacity: 0.25
             });
-            const glowMesh = new THREE.Mesh(
-                new THREE.SphereGeometry(0.35, 16, 16),
-                glowMaterial
-            );
+            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
             glowMesh.position.copy(point);
             scene.add(glowMesh);
             
-            // Core node
-            const nodeMaterial = new THREE.MeshPhongMaterial({
-                color: concept.color,
-                emissive: concept.color,
-                emissiveIntensity: 0.5,
-                shininess: 100
-            });
-            const nodeMesh = new THREE.Mesh(nodeGeometry, nodeMaterial);
-            nodeMesh.position.copy(point);
-            nodeMesh.userData = concept;
-            scene.add(nodeMesh);
-            
-            conceptNodes.push({ 
-                mesh: nodeMesh, 
+            conceptNodes.push({
+                mesh: nodeMesh,
                 glow: glowMesh,
-                originalEmissive: 0.5,
-                concept: concept 
+                concept: concept,
+                originalEmissive: 0.5
             });
         });
         
@@ -999,7 +1277,6 @@
             
             previousMousePosition = { x: event.clientX, y: event.clientY };
             
-            // Raycasting for hover
             if (!isDragging && !selectedNode) {
                 raycaster.setFromCamera(mouse, camera);
                 const intersects = raycaster.intersectObjects(conceptNodes.map(n => n.mesh));
@@ -1039,7 +1316,6 @@
             isDragging = false;
             container.style.cursor = 'grab';
             
-            // Check for click on node
             if (hoveredNode && Math.abs(rotationVelocity.x) < 0.01 && Math.abs(rotationVelocity.y) < 0.01) {
                 selectNode(hoveredNode);
             }
@@ -1073,7 +1349,6 @@
         container.addEventListener('mousedown', onMouseDown);
         window.addEventListener('mouseup', onMouseUp);
         
-        // Handle resize
         window.addEventListener('resize', () => {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
@@ -1088,7 +1363,6 @@
             time += 0.01;
             knotMaterial.uniforms.time.value = time;
             
-            // Auto-rotate when not interacting
             if (!isDragging && !selectedNode) {
                 knotMesh.rotation.y += autoRotateSpeed;
             } else if (!isDragging) {
@@ -1101,7 +1375,6 @@
                 }
             }
             
-            // Update node positions to follow knot rotation
             conceptNodes.forEach(({ mesh, glow, concept }) => {
                 const point = curve.getPoint(concept.position);
                 const rotatedPoint = point.clone();
@@ -1110,7 +1383,6 @@
                 glow.position.copy(rotatedPoint);
             });
             
-            // Pulse node glows
             conceptNodes.forEach(node => {
                 if (node !== selectedNode && node !== hoveredNode) {
                     node.glow.material.opacity = 0.25 + Math.sin(time + node.concept.position * 10) * 0.08;
@@ -1169,28 +1441,28 @@
                 key = `${g1}*${g2}`;
             } else {
                 result = g1 * g2 * g3;
-                formula = `${g1Label} × ${g2Label} × ${g3Label} = ${g1.toFixed(4)} × ${g2.toFixed(4)} × ${g3.toFixed(4)}`;
+                formula = `${g1Label} × ${g2Label} × ${g3Label}`;
                 key = `${g1}*${g2}*${g3}`;
             }
             
             document.getElementById('calc-formula').textContent = formula;
             document.getElementById('calc-value').textContent = result.toLocaleString('en-US', { maximumFractionDigits: 1 });
             
-            // Check for known particle match
             const particles = knownParticles[currentOperation];
-            let matchText = '';
+            const matchEl = document.getElementById('calc-match');
             if (particles && particles[key]) {
                 const p = particles[key];
                 const error = Math.abs((result - p.measured) / p.measured * 100).toFixed(4);
-                matchText = `≈ ${p.name} (measured: ${p.measured.toLocaleString()} ${p.unit}, error: ${error}%)`;
+                matchEl.textContent = `≈ ${p.name} (measured: ${p.measured.toLocaleString()} ${p.unit}, error: ${error}%)`;
+                matchEl.style.display = 'block';
+            } else {
+                matchEl.style.display = 'none';
             }
-            document.getElementById('calc-match').textContent = matchText;
         }
         
         window.setOperation = setOperation;
         window.calculate = calculate;
         
-        // Initialize calculator
         calculate();
     </script>
 </body>
